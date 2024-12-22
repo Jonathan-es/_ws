@@ -18,7 +18,7 @@ router.get('/', list)
   .get('/post/new', add)
   .get('/post/:id', show)
   .post('/post', create)
-  .get('/list/:user', listUserPosts); // 只顯示該使用者的貼文
+  .get('/list/:user', listUserPosts);
 
 const app = new Application()
 app.use(Session.initMiddleware())
