@@ -1,0 +1,183 @@
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #74ebd5, #9face6);
+  overflow: hidden;
+}
+
+/* Game Container - Flex Layout */
+#game-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1200px;
+  height: 80%;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Main Game Area */
+#game-area {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Leaderboard Container (Right Side) */
+#leaderboard-container {
+  width: 25%;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+#leaderboard-container h3 {
+  text-align: center;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+#leaderboard-list {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+#leaderboard-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  color: #555;
+}
+
+/* Auth Section (Login/Register) */
+#user-auth h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #555;
+}
+
+#username {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+#username:focus {
+  border-color: #74ebd5;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  padding: 12px 25px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #74ebd5, #9face6);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #9face6, #74ebd5);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#restart-btn {
+  background: #f76c6c;
+}
+
+#restart-btn:hover {
+  background: #fa8282;
+}
+
+/* Game Result Display */
+#result-text {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #555;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Game Buttons */
+#game-buttons button {
+  width: 120px;
+  height: 50px;
+  font-size: 18px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+#game-buttons button:hover {
+  background: linear-gradient(135deg, #a6c1ee, #fbc2eb);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #game-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  #leaderboard-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  #game-area {
+    width: 100%;
+  }
+}

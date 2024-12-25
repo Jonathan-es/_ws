@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Main Game Container (Center) -->
+  <div id="game-container">
+    <div id="game-area">
+      <!-- Login/Registration Section -->
+      <div id="user-auth">
+        <h2>Login or Register</h2>
+        <input type="text" id="username" placeholder="Enter your username" />
+        <button onclick="registerUser()">Register</button>
+        <button onclick="loginUser()">Login</button>
+        <p id="auth-msg"></p>
+      </div>
+
+      <!-- Game Section -->
+      <div id="game-play" style="display: none;">
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <p id="result-text">Make your choice!</p>
+        
+        <div id="game-buttons">
+          <button onclick="userChoice('rock')">Rock</button>
+          <button onclick="userChoice('paper')">Paper</button>
+          <button onclick="userChoice('scissors')">Scissors</button>
+        </div>
+        
+        <button id="restart-btn" style="display: none;" onclick="restartGame()">Play Again</button>
+        <button onclick="goBackToLogin()">Back to Login/Registration</button>
+      </div>
+    </div>
+
+    <!-- Leaderboard Section (Right Side) -->
+    <div id="leaderboard-container">
+      <h3>Leaderboard</h3>
+      <ul id="leaderboard-list"></ul>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
