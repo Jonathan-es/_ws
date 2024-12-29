@@ -2,56 +2,57 @@ import { Application, Router } from "https://deno.land/x/oak@v12.6.0/mod.ts";
 import * as render from "./render.js";
 import { DB } from "https://deno.land/x/sqlite@v3.9.1/mod.ts";
 
-// Initialize database
 const db = new DB("blog.db");
 db.query(`DROP TABLE IF EXISTS posts`);
 db.query(`
 CREATE TABLE posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    user TEXT, 
     title TEXT, 
     body TEXT
 )`);
 
-// Router setup
 const router = new Router();
 router
-  .get('/', list)
-  .get('/post/new', add)
-  .get('/post/:id', show)
-  .post('/post', create);
+  .get('/:user/', list)
+  .get('/:user/post/new', add)
+  .get('/:user/post/:id', show)
+  .post('/:user/post', create);
 
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-// Helper function for querying the database
 function query(sql, params = []) {
   const results = [];
-  for (const [id, title, body] of db.query(sql, params)) {
-    results.push({ id, title, body });
+  for (const [id, user, title, body] of db.query(sql, params)) {
+    results.push({ id, user, title, body });
   }
   return results;
 }
 
-// Route handlers
 async function list(ctx) {
-  const posts = query("SELECT id, title, body FROM posts");
-  ctx.response.body = await render.list(posts);
+  const user = ctx.params.user;
+  const posts = query("SELECT id, user, title, body FROM posts WHERE user = ?", [user]);
+  ctx.response.body = await render.list(user, posts);
 }
 
 async function add(ctx) {
-  ctx.response.body = await render.newPost();
+  const user = ctx.params.user;
+  ctx.response.body = await render.newPost(user);
 }
 
 async function show(ctx) {
+  const user = ctx.params.user;
   const postId = ctx.params.id;
-  const posts = query("SELECT id, title, body FROM posts WHERE id = ?", [postId]);
+  const posts = query("SELECT id, user, title, body FROM posts WHERE user = ? AND id = ?", [user, postId]);
   const post = posts[0];
   if (!post) ctx.throw(404, 'Post not found');
   ctx.response.body = await render.show(post);
 }
 
 async function create(ctx) {
+  const user = ctx.params.user;
   const body = ctx.request.body();
   if (body.type === "form") {
     const pairs = await body.value;
@@ -59,8 +60,8 @@ async function create(ctx) {
     for (const [key, value] of pairs) {
       post[key] = value;
     }
-    db.query("INSERT INTO posts (title, body) VALUES (?, ?)", [post.title, post.body]);
-    ctx.response.redirect('/');
+    db.query("INSERT INTO posts (user, title, body) VALUES (?, ?, ?)", [user, post.title, post.body]);
+    ctx.response.redirect(`/${user}/`);
   }
 }
 
